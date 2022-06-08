@@ -1,5 +1,5 @@
 arg. usage 
 [-h  or --help]                                 for help
 [-ab or --add-balance] [*user] [*amount]        add *amount in *user's account
-[-rd or --reset-data]                           reset data to zero accounts
+[-rb or --reset-balance]                        reset balance sheet
 [-rp or --reset-profiles]                       reset profiles

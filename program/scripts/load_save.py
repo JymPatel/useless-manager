@@ -4,24 +4,22 @@ from termcolor import colored
 
 
 def load_data():
-    _path = "./data/main_data"
+    _path = "./data/balance_sheet"
     data = []
     if os.path.exists(_path):
         _datafile = open(_path, "rb")
         data.append(pickle.load(_datafile))
         _datafile.close()
     else:
-        print("sorry! but we can't find data file :(")
-        print("try",  colored("main.py --reset-data", "green"), "to reset data")
+        return [1, 1]
 
-    _path = "./data/main_profiles"
+    _path = "./data/profiles"
     if os.path.exists(_path):
         _datafile = open(_path, "rb")
         data.append(pickle.load(_datafile))
         _datafile.close()
     else:
-        print("sorry! but we can't find data file :(")
-        print("try",  colored("main.py --reset-data", "green"), "to reset data")
+        return[2, 2]
     
     return data
 

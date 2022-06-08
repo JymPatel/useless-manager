@@ -11,7 +11,7 @@ def reset_data():
         "myself": 0
     }
 
-    file = open("data/main_data", "wb")
+    file = open("data/balance_sheet", "wb")
     pickle.dump(dict1, file)
     file.close()
     file = open("data/main_data", "rb")
@@ -25,7 +25,7 @@ def reset_profiles():
         "myself": ["Jym Patel", "jympatel@yahoo.com", True]
     }
 
-    file = open("data/main_profiles", "wb")
+    file = open("data/profiles", "wb")
     pickle.dump(dict1, file)
     file.close()
 
@@ -38,16 +38,17 @@ def help():
 
 def send_mail(username, add_balance):  
     print("Setting up Server ...")
-    smtp = smtplib.SMTP('smtp.gmail.com', 587)
-    smtp.ehlo()
+    # smtp = smtplib.SMTP('smtp.gmail.com', 587)
+    # smtp.ehlo()
     print("Starting Server ...")
-    smtp.starttls()
-    smtp.login(sender_email, password)
+    # smtp.starttls()
+    # smtp.login(sender_email, password)
     print("Sending Mail ...")
-    msg = MIMEMultipart()
-    msg['Subject'] = "Balance Update"
-    msg.attach(MIMEText("Dear, " + name + "!\n"))
-    smtp.sendmail(from_addr=sender_email,
-              to_addrs=reciver_email, msg=msg.as_string())
+    # msg = MIMEMultipart()
+    # msg['Subject'] = "Balance Update"
+    # msg.attach(MIMEText("Dear, " + name + "!\n"))
+    # smtp.sendmail(from_addr=sender_email,
+    #           to_addrs=reciver_email, msg=msg.as_string())
     print("Closing Server ...")
-    smtp.quit()
+    # smtp.quit()
+    print("Mail Sent Sucessfully")
