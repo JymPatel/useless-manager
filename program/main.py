@@ -4,8 +4,6 @@ print("this code is licensed under GPL v3 License\n")
 
 
 import sys
-import os
-import pickle
 from termcolor import colored
 import scripts.functions as fn
 import scripts.load_save as ldsv
