@@ -68,4 +68,4 @@ elif (task == "-ab") or (task == "--add-balance"):
 
 
 # save data
-ldsv.save_data(balance_sheet, profiles)
+ldsv.save_data(balance_sheet, profiles, settings)
