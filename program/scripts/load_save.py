@@ -1,3 +1,4 @@
+from distutils import file_util
 import os
 import pickle
 from termcolor import colored
@@ -32,5 +33,14 @@ def load_data():
     return data
 
 
-def save_data(balance_sheet, profiles):
+def save_data(balance_sheet, profiles, settings):
+    file = open("data/balance_sheet", "wb")
+    pickle.dump(balance_sheet, file)
+    file.close()
+    file = open("data/profiles", "wb")
+    pickle.dump(profiles, file)
+    file.close()
+    file = open("data/settings", "wb")
+    pickle.dump(settings, file)
+    file.close()
     print("TODO")
