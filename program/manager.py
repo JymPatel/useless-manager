@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 # by @JymPatel
 # this code is licensed under GPL v3 License
 print("this code is licensed under GPL v3 License\n")
