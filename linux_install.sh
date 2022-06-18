@@ -17,7 +17,7 @@ custom_path=$PWD
 while [ 0 == 0 ]
 do
     # ask if they agree path
-    echo -e "Would you like to add ${GREEN}manager${RESET} program at ${GREEN}$custom_path${RESET}? (y/n)"
+    echo -e "would you like to add ${MAGENTA}manager${RESET} program at ${GREEN}$custom_path${RESET}? (y/n)"
     read answer
 
     #if there answer is empty 
@@ -33,7 +33,7 @@ do
         echo -e "todo!"
     else
         # if he don't agree ask his custom path
-        echo -e "enter custom path : (${RED}!! ${RESET}to exit installation!)"
+        echo -e "enter custom path : (${RED}!!${RESET} to exit installation!)"
         read custom_path
         if [ $custom_path == "!!" ]
         then
