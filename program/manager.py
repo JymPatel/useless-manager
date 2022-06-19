@@ -2,7 +2,7 @@
 # by @JymPatel
 # this code is licensed under GPL v3 License
 print("this code is licensed under GPL v3 License\n")
-
+manager_version = "0.0.23"
 
 import sys
 from termcolor import colored
