@@ -1,14 +1,6 @@
 
 # color variables
-BLACK='\033[0;30m'
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[0;33m'
-BLUE='\033[0;34m'
-MAGENTA='\033[0;35m'
-CYAN='\033[0;36m'
-LIGHTGREY='\033[0;37m'
-RESET='\033[0m'
+BLACK='\033[0;30m';RED='\033[0;31m';GREEN='\033[0;32m';YELLOW='\033[0;33m';BLUE='\033[0;34m';MAGENTA='\033[0;35m';CYAN='\033[0;36m';LIGHTGREY='\033[0;37m';RESET='\033[0m'
 
 # manager_version
 manager_version = "0.1.0"
@@ -33,7 +25,10 @@ do
     if [ ${answer:0:1} == 'y' ] || [ ${answer:0:1} == 'Y' ]
     then
         # user agrees to path
+        touch user_settings.txt
+        echo "PATH : ${custom_path}" > user_settings.txt
         echo -e "todo!"
+        break
     else
         # if he don't agree ask his custom path
         echo -e "enter custom path : (${RED}!!${RESET} to exit installation!)"
@@ -42,8 +37,6 @@ do
         then
             echo -e "${RED}cancelled installation!"
             break
-        else
-            echo -e "todo"
         fi
     fi
 done
