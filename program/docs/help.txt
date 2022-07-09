@@ -3,3 +3,5 @@ arg. usage
 [-ab or --add-balance] [*user] [*amount]        add *amount in *user's account
 [-rb or --reset-balance]                        reset balance sheet
 [-rp or --reset-profiles]                       reset profiles
+
+help doc version 0.1
