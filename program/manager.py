@@ -1,114 +1,72 @@
-# this code is licensed under GNU General Public License v3 (https://github.com/JymPatel/useless-manager/blob/master/LICENSE)
+#!/usr/bin/python3
+# by @JymPatel
+# this code is licensed under GPL v3 License
+print("this code is licensed under GPL v3 License\n")
+manager_version = "0.1.0"
 
 import sys
 from termcolor import colored
+import scripts.functions as fn
+import scripts.load_save as ldsv
 
 
-# defining global variables (will be overwrite by main() at initial run)
-users = [] # stores identities of users
-transactions = [] # stores all transactions done
+arg = sys.argv[1:]
+# get data & profiles
+try:
+    [balance_sheet, profiles, settings] = ldsv.load_data()
+except ValueError:
+    print("would you like to reset data")
 
 
-class Transaction:
-    ...
+# check number of arguements & get task to do
+if (len(arg) < 1):
+    print("insufficient arguements, opening help file ...")
+    fn.help()
+    exit()
+task = arg[0].lower()
 
 
-class Person:
-    def __init__(self, first, last, middle, entered_ID, balance=0):
-        self.balance = balance
-        # set Person name
-        if middle == "":
-            self.name = first + " " + last
+# help
+if (task == "-h") or (task == "--help"):
+    print("opening docs/help.txt ...")
+    fn.help()
+
+# reset data
+elif (task == "-rb") or (task == "--reset-balance"):
+    balance_sheet = fn.reset_data()
+
+# reset profiles
+elif (task == "-rp") or (task == "--reset-profiles"):
+    fn.reset_profiles()
+
+# reset settings
+elif (task == "-rs") or (task == "--reset-settings"):
+    fn.reset_settings()
+
+# === adding amount ===
+elif (task == "-ab") or (task == "--add-balance"):
+    username = arg[1]
+    if (len(arg) < 3): # check for sufficient arguements
+        print(colored("insufficient arguements", "red"), "for -a command need", colored("-a *user *amount", "red"))
+        fn.help()
+    else:
+        # == updating data ==
+        if username in balance_sheet:
+            balance_sheet[username] += int(arg[2])
         else:
-            self.name = first + " " + middle + " " + last
-        # set Person id
-        try:
-            self.ID = entered_ID
-        except ValueError:
-            raise ValueError("user ID already taken!")
-
-    def __str__(self):
-        return f"{self.name} has id {self.ID}"
-
-    @property
-    def ID(self):
-        return self.id
-    
-    @ID.setter
-    def ID(self, ID):
-        if ID not in [user.id for user in users]:
-            self.id = ID
+            balance_sheet[username] = int(arg[2])
+        new_amnt = balance_sheet[username]
+        print(username, ":", colored(new_amnt, "red" if new_amnt > 0 else "green"))
+        # == send email ==
+        if (username in profiles) and (profiles[username][2] == True):
+            if settings["default_email"] == None:
+                sender_email = input("senders email: ")
+            else:
+                sender_email = settings["default_email"]
+            fn.send_mail(balance_sheet[username], profiles[username][0], profiles[username][1], sender_email, input("password : "))
         else:
-            raise ValueError("user ID already taken!")
+            print("no profile found for", username, "would you like to create one and send mail")
 
 
-
-def main():
-    task = get_task()
-    
-    if task == "version":
-        print(f"manager.py\ncurrent version {current_version()[0]}.{current_version()[1]}")
-    elif task == "help":
-        get_help()
-    elif task == "newaccount":
-        users.append(create_user())
-        print(colored(f"created account for {users[-1].name} with UNIQUE ID {users[-1].ID} and balance {users[-1].balance}", "green"))
-    
-    # smooth end
-    print(colored("\nthis code is licensed under GNU Public License V3\nget this code at https://github.com/JymPatel/useless-manager", "blue"))
-
-
-def get_task():
-    try: 
-        task =  sys.argv[1]
-
-        if task in ["-h", "--help", "help"]:
-            return "help"
-        elif task in ["-v", "--version", "version"]:
-            return "version"
-        elif task == "newaccount":
-            return "newaccount"
-
-        else: # else return error 102 in RED
-            generated_error = "ERROR 102\nCould not find task provided\nTry manager.py --help"
-            sys.exit(colored(generated_error, "red"))
-
-    except IndexError: # no arguements given
-        generated_error = "ERROR 101\nInsufficient argurments\nTry manager.py --help"
-        sys.exit(colored(generated_error, "red"))
-
-
-def get_help():
-    print(colored("opening docs/help ...", "yellow"))
-    print(open("./docs/help.txt", 'r').read())
-
-
-def create_user():
-    first = input("First Name: ")
-    middle = input("Middle Name: ")
-    last = input("Last Name: ")
-    while True:
-        try:
-            unique_id = input("create UNIQUE ID: ")
-
-            if unique_id == "": # empty ID
-                print(colored("you can't use empty string!", "red"))
-                continue
-
-            user = Person(first, last, middle, unique_id)
-            break
-
-        except ValueError:
-            print(colored("UNIQUE ID already taken, try another!", "red"))
-            continue
-    return user
-
-
-
-def current_version():
-    major = 1
-    minor = 1
-    return [major, minor]
-
-if __name__ == __name__:
-    main()
+# save data
+ldsv.save_data(balance_sheet, profiles, settings)
