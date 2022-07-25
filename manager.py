@@ -1,6 +1,6 @@
 #!./.venv/bin/python3
 
-# # this code is licensed under MIT License (https://github.com/TheAlgorithms/Python/blob/master/LICENSE.md)
+# # this code is licensed under GNU General Public License v3 (#TODO)
 
 import sys
 import pickle
@@ -52,7 +52,7 @@ class Person:
         except ValueError:
             raise ValueError("user ID already taken!")
 
-    # lock ID of person not to duplicate
+    # check if ID is unique
     @property
     def ID(self):
         return self.id
@@ -87,9 +87,6 @@ def main():
         for user in users:
             user.print_data()
 
-    # smooth end
-    print(colored("\nthis code is licensed under MIT License", "blue"))
-    print(colored("get this code at https://github.com/JymPatel/useless-manager", "blue"))
 
 
 def get_task(): # returns task as string from command line input
@@ -181,3 +178,6 @@ if __name__ == __name__:
     load_data()
     main()
     save_data()
+    # smooth end
+    print(colored("\nthis code is licensed under GNU General Public License v3", "blue"))
+    print(colored("get this code at https://github.com/JymPatel/useless-manager", "blue"))
